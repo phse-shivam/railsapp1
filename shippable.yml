@@ -1,0 +1,10 @@
+# language setting
+language: ruby
+
+# version numbers
+rvm:
+  - 1.9.3
+notifications:
+     email:
+         recipients:
+             - shivam.bajpai@stackexpress.com
