@@ -8,3 +8,6 @@ notifications:
      email:
          recipients:
              - shivam.bajpai@stackexpress.com
+
+after_install:
+ - rake db:migrate
