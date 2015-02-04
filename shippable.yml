@@ -9,5 +9,5 @@ notifications:
          recipients:
              - shivam.bajpai@stackexpress.com
 
-before_install:
+before_script:
  - rake db:migrate
