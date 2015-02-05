@@ -24,8 +24,7 @@ before_install:
 before_script:
   - mkdir -p shippable/testresults
   - mkdir -p shippable/codecoverage
-  - psql -c 'create database "se-railsapp1";' -U mysql
-  - mysql -e 'create database myapp_test;'
+  - mysql -e 'create database myapp_test;' -U shippable
   - rake db:migrate
 
 after_success:
