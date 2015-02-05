@@ -7,11 +7,27 @@ rvm:
   - 2.0.0
   - 2.1.0
   - 2.1.5
-  - 2.2.0
 notifications:
      email:
          recipients:
              - shivam.bajpai@stackexpress.com
 
+env:
+  global:
+    - APP_NAME=se-railsapp1
+    - CI_REPORTS=shippable/testresults COVERAGE_REPORTS=shippable/codecoverage
+    - secure: irDv64pZtC6SWT71xs8XYUBAIGbJjRq+IcVK4h375f/25BP2gh1RQDhuAg7oobMTb06RH5WjQRYZFq+jMqyAwT9WUDITM2LHD8+p539+l2COwCCgH3hhLEgo6kyBW9oS2A62rNeYfWAXX42R1J2nDbcS16nlZ0qKle0BsMH9dPahonyOAI7plzdtG4bX804Uj5YOX+UE3BCI+4GMkwmYixgyCxJZ9oq4RT8vAjQ5nbIp7SRqcsLCS9/C+ZD9CiZQTFzhr3wbBzIXTeeYjNYI7jl3r8vYz/r64UTOILzCH2NfWSI7e+5toXOTyTs/6ocrfz3aKG6oEPbbA0uLm9LHVQ==
+
+before_install:
+  - which heroku || wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
+
 before_script:
- - rake db:migrate
+  - mkdir -p shippable/testresults
+  - mkdir -p shippable/codecoverage
+  - psql -c 'create database "se-railsapp1";' -U postgres
+
+after_success:
+  - test -f ~/.ssh/id_rsa.heroku || ssh-keygen -y -f ~/.ssh/id_rsa > ~/.ssh/id_rsa.heroku && heroku keys:add ~/.ssh/id_rsa.heroku
+  - git remote -v | grep ^heroku || heroku git:remote --ssh-git --app $APP_NAME
+  - git push -f heroku $BRANCH:master
+  - heroku run rake db:migrate
