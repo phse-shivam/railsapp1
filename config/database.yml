@@ -19,7 +19,9 @@ test:
   timeout: 5000
 
 production:
-  adapter: sqlite3
-  database: db/production.sqlite3
+  adapter: MySQL
   pool: 5
   timeout: 5000
+  database: se-railsapp1-mysql-heroku_production
+  username: se-railsapp1-mysql-heroku
+  password: <%= ENV['SE-RAILSAPP1-MYSQL-HEROKU_DATABASE_PASSWORD'] %>
