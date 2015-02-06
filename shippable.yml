@@ -4,9 +4,9 @@ language: ruby
 # version numbers
 rvm:
   - 1.9.3
-  - 2.0.0
-  - 2.1.0
-  - 2.1.5
+  # - 2.0.0
+  # - 2.1.0
+  # - 2.1.5
 notifications:
      email:
          recipients:
@@ -24,7 +24,7 @@ before_install:
 before_script:
   - mkdir -p shippable/testresults
   - mkdir -p shippable/codecoverage
-  - mysql -e 'create database se-railsapp1-mysql-heroku_production;'
+  - mysql -e 'create database if not exists se-railsapp1-mysql-heroku_production;'
   - rake db:migrate
 
 after_success:
