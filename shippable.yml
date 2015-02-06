@@ -24,7 +24,7 @@ before_install:
 before_script:
   - mkdir -p shippable/testresults
   - mkdir -p shippable/codecoverage
-  - mysql -e 'create database myapp_test;' -U shippable
+  - mysql -e 'create database se-railsapp1-mysql-heroku_production;' -U shippable
   - rake db:migrate
 
 after_success:
